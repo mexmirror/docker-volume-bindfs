@@ -8,8 +8,9 @@ clean:
 	@rm -rf ./plugin
 
 rootfs:
+# Create docker builder
 	@echo "### docker build: rootfs image with docker-volume-bindfs"
-	@docker build -q -t ${PLUGIN_NAME}:rootfs .
+	@docker buildx build --platform=linux/arm64,linux/amd64 -t ${PLUGIN_NAME}:rootfs .
 	@echo "### create rootfs directory in ./plugin/rootfs"
 	@mkdir -p ./plugin/rootfs
 	@docker create --name tmp ${PLUGIN_NAME}:rootfs
